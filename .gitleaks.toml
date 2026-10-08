@@ -1,0 +1,13 @@
+title = "project-starter"
+
+[extend]
+useDefault = true
+
+# Catches a literal value assigned to LLM_API_KEY in any committed file
+# (the default rules can miss plain hex or short keys).
+[[rules]]
+id = "llm-api-key-assignment"
+description = "LLM_API_KEY assigned a literal value"
+regex = '''(?i)LLM_API_KEY\s*[:=]\s*["']?([A-Za-z0-9_\-]{16,})["']?'''
+secretGroup = 1
+keywords = ["llm_api_key"]
