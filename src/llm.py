@@ -11,11 +11,15 @@ DEFAULT_BASE_URL = "https://llm-proxy-obfzuamujq-ew.a.run.app/v1"
 DEFAULT_MODEL = "course-chat"
 
 
+class LLMConfigurationError(RuntimeError):
+    """The LLM client cannot be created from the current environment."""
+
+
 def get_client() -> OpenAI:
     base_url = os.environ.get("LLM_BASE_URL") or DEFAULT_BASE_URL
     api_key = os.environ.get("LLM_API_KEY")
     if not api_key:
-        raise RuntimeError("LLM_API_KEY not set. Check your .env file.")
+        raise LLMConfigurationError("LLM_API_KEY not set. Check your .env file.")
     return OpenAI(base_url=base_url, api_key=api_key)
 
 
